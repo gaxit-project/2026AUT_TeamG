@@ -1,0 +1,7 @@
+Id,Name,Hp,Attack,MoveSpeed,IsBoss,DropItemIds,#メモ
+int,string,int,int,float,bool,int[],
+ID,表示名,最大HP,攻撃力,移動速度（m/秒）,ボスかどうか,倒したときに落とすアイテムのID（; 区切り）,
+1,スライム,30,5,1.5,FALSE,101;102,序盤用
+2,ゴブリン,60,12,2.5,FALSE,101,
+# 3,ゴーレム,300,25,0.8,FALSE,103,調整中なのでコメントアウト
+4,ドラゴン,1200,80,4,TRUE,201;202;203,ステージ1のボス

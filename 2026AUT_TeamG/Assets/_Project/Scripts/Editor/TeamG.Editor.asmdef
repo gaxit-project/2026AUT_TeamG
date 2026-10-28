@@ -1,6 +1,6 @@
 {
     "name": "TeamG.Editor",
-    "rootNamespace": "TeamG.Editor",
+    "rootNamespace": "TeamG.EditorTools",
     "references": [
         "TeamG.Core",
         "TeamG.Data",

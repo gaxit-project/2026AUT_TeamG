@@ -1,5 +1,6 @@
 # MasterData
 
-マスターデータの元データ（Excel / CSV）を置きます。
-ゲームが読むのは変換後のデータ（`Assets/_Project/GeneratedData/`）だけです。
-ここを直接 Unity から読み込まないでください。
+マスターデータの元データ（CSV）を置きます。
+Unity のメニュー「TeamG > マスターデータ > 変換」で、ゲームが読むデータ（`2026AUT_TeamG/Assets/_Project/GeneratedData/Master/`）に変換されます。
+
+書き方は [Docs/tools/master-data.md](../Docs/tools/master-data.md) を見てください。`Enemy.csv` が見本です。

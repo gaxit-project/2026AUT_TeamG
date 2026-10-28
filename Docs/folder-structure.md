@@ -71,6 +71,7 @@ Editor → すべての Runtime を参照（エディタ専用）
 
 - Core から Gameplay を参照したくなったら、インターフェースやイベントを Core に置いて依存を逆転させます。
 - 本番コードから `TeamG.DebugTools` を参照しないでください（リリースビルドで存在しません）。
+- エディタ拡張の名前空間は `TeamG.EditorTools` です。`TeamG.Editor` にすると、カスタムインスペクタの `: Editor` が名前空間と衝突します。
 - 名前空間を `TeamG.Debug` にしないでください。`TeamG` 配下のコードで `Debug.Log` が `UnityEngine.Debug` ではなくその名前空間として解釈され、コンパイルエラーになります。
 
 ## 社内ツールパッケージ
