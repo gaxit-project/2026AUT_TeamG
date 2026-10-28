@@ -1,0 +1,22 @@
+{
+    "name": "TeamG.Editor",
+    "rootNamespace": "TeamG.Editor",
+    "references": [
+        "TeamG.Core",
+        "TeamG.Data",
+        "TeamG.Gameplay",
+        "TeamG.UI",
+        "TeamG.Debug"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

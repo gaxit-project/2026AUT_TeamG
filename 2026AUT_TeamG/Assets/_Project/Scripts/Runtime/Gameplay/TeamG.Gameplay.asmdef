@@ -1,0 +1,18 @@
+{
+    "name": "TeamG.Gameplay",
+    "rootNamespace": "TeamG.Gameplay",
+    "references": [
+        "TeamG.Core",
+        "TeamG.Data",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

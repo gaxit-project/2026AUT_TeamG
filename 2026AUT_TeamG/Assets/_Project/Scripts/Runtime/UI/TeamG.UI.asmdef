@@ -1,0 +1,20 @@
+{
+    "name": "TeamG.UI",
+    "rootNamespace": "TeamG.UI",
+    "references": [
+        "TeamG.Core",
+        "TeamG.Data",
+        "TeamG.Gameplay",
+        "UnityEngine.UI",
+        "Unity.TextMeshPro"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

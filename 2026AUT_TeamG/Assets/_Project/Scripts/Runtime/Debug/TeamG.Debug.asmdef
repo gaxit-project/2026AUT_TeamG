@@ -1,0 +1,22 @@
+{
+    "name": "TeamG.Debug",
+    "rootNamespace": "TeamG.Debug",
+    "references": [
+        "TeamG.Core",
+        "TeamG.Data",
+        "TeamG.Gameplay",
+        "TeamG.UI",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_EDITOR || DEVELOPMENT_BUILD"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.teamg.tools": {
+      "version": "file:com.teamg.tools",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.11",
       "depth": 0,
