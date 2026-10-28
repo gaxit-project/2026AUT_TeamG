@@ -6,7 +6,7 @@
         "TeamG.Data",
         "TeamG.Gameplay",
         "TeamG.UI",
-        "TeamG.Debug"
+        "TeamG.DebugTools"
     ],
     "includePlatforms": [
         "Editor"

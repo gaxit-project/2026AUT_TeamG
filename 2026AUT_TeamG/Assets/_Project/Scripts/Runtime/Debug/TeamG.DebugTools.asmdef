@@ -1,6 +1,6 @@
 {
-    "name": "TeamG.Debug",
-    "rootNamespace": "TeamG.Debug",
+    "name": "TeamG.DebugTools",
+    "rootNamespace": "TeamG.DebugTools",
     "references": [
         "TeamG.Core",
         "TeamG.Data",

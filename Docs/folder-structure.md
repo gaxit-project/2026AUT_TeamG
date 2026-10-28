@@ -31,7 +31,7 @@ Assets/
 │   │   │   │   └── Generated/   # ツールが自動生成するコード（手で編集しない）
 │   │   │   ├── Gameplay/        # ゲームロジック                         TeamG.Gameplay
 │   │   │   ├── UI/              #                                        TeamG.UI
-│   │   │   └── Debug/           # デバッグメニュー（開発ビルドのみ）     TeamG.Debug
+│   │   │   └── Debug/           # デバッグメニュー（開発ビルドのみ）     TeamG.DebugTools
 │   │   └── Editor/              # このプロジェクト専用のエディタ拡張     TeamG.Editor
 │   ├── Art/
 │   │   ├── Characters/          # キャラ単位でまとめる（例: chr_0001/）
@@ -64,13 +64,14 @@ Assets/
 ```
 Core ← Data ← Gameplay ← UI
                  ↑         ↑
-                 └─ Debug ─┘   （UNITY_EDITOR か DEVELOPMENT_BUILD のときだけコンパイル）
+                 └ DebugTools ┘ （UNITY_EDITOR か DEVELOPMENT_BUILD のときだけコンパイル）
 
 Editor → すべての Runtime を参照（エディタ専用）
 ```
 
 - Core から Gameplay を参照したくなったら、インターフェースやイベントを Core に置いて依存を逆転させます。
-- 本番コードから `TeamG.Debug` を参照しないでください（リリースビルドで存在しません）。
+- 本番コードから `TeamG.DebugTools` を参照しないでください（リリースビルドで存在しません）。
+- 名前空間を `TeamG.Debug` にしないでください。`TeamG` 配下のコードで `Debug.Log` が `UnityEngine.Debug` ではなくその名前空間として解釈され、コンパイルエラーになります。
 
 ## 社内ツールパッケージ
 
