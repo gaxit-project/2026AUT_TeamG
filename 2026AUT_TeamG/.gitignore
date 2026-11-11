@@ -107,3 +107,6 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Auto-play bot reports (TeamG.DebugTools.AutoPlay)
+/[Aa]uto[Pp]lay[Rr]eports/
