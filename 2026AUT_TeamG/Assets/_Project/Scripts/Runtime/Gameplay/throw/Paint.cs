@@ -23,6 +23,8 @@ namespace TeamG.Gameplay
         private Color32[] displayPixels;
         private int size;
         private bool dirty;
+        // Primitive/imported UVs can have tiny floating-point overshoots at the 0/1 boundary.
+        private const float UvTolerance = 0.0001f;
 
         public Texture2D Mask => mask;
         public int PaintedPixelCount { get; private set; }
@@ -37,7 +39,7 @@ namespace TeamG.Gameplay
 
         private bool Fail(string message)
         {
-            Debug.LogError("Paint: " + message, this);
+            Debug.LogError("Paint [" + name + "]: " + message, this);
             enabled = false;
             return false;
         }
@@ -47,15 +49,33 @@ namespace TeamG.Gameplay
             targetRenderer = GetComponent<MeshRenderer>();
             meshCollider = GetComponent<MeshCollider>();
             Mesh mesh = GetComponent<MeshFilter>().sharedMesh;
-            if (mesh == null || meshCollider.sharedMesh != mesh)
-                return Fail("MeshFilter and MeshCollider must use the same mesh.");
+            if (mesh == null)
+                return Fail("MeshFilter has no mesh. Attach Paint to the rendered mesh object, not an empty parent.");
+            if (meshCollider.sharedMesh != mesh)
+                return Fail("MeshFilter uses '" + mesh.name + "' but MeshCollider uses '" +
+                    (meshCollider.sharedMesh != null ? meshCollider.sharedMesh.name : "None") +
+                    "'. Assign the same mesh to both components.");
             if (!mesh.isReadable)
                 return Fail("Enable Read/Write on the imported mesh, then Apply.");
-            if (mesh.uv.Length != mesh.vertexCount || mesh.subMeshCount != 1)
+            Vector2[] uvs = mesh.uv;
+            if (uvs.Length != mesh.vertexCount || mesh.subMeshCount != 1)
                 return Fail("Use a single-submesh mesh with UV0 coordinates for every vertex.");
-            foreach (Vector2 uv in mesh.uv)
-                if (uv.x < 0f || uv.x > 1f || uv.y < 0f || uv.y > 1f)
-                    return Fail("UV0 must be inside 0..1 for this prototype.");
+            Vector2 uvMin = new Vector2(float.PositiveInfinity, float.PositiveInfinity);
+            Vector2 uvMax = new Vector2(float.NegativeInfinity, float.NegativeInfinity);
+            foreach (Vector2 uv in uvs)
+            {
+                if (float.IsNaN(uv.x) || float.IsNaN(uv.y) ||
+                    float.IsInfinity(uv.x) || float.IsInfinity(uv.y))
+                    return Fail("Mesh '" + mesh.name + "' contains invalid UV0 coordinates.");
+                uvMin = Vector2.Min(uvMin, uv);
+                uvMax = Vector2.Max(uvMax, uv);
+            }
+            if (uvMin.x < -UvTolerance || uvMin.y < -UvTolerance ||
+                uvMax.x > 1f + UvTolerance || uvMax.y > 1f + UvTolerance)
+                return Fail("Mesh '" + mesh.name + "' UV0 is outside 0..1: U=" +
+                    uvMin.x.ToString("G9") + ".." + uvMax.x.ToString("G9") + ", V=" +
+                    uvMin.y.ToString("G9") + ".." + uvMax.y.ToString("G9") +
+                    ". Unwrap UV0 into 0..1. Repeating UVs are not supported by this paint prototype.");
             if (meshCollider.convex || meshCollider.isTrigger)
                 return Fail("MeshCollider must have Convex OFF and Is Trigger OFF.");
             if (meshCollider.attachedRigidbody != null && !meshCollider.attachedRigidbody.isKinematic)
@@ -138,7 +158,10 @@ namespace TeamG.Gameplay
             if (!isActiveAndEnabled || mask == null || radiusUv <= 0f ||
                 float.IsNaN(uv.x) || float.IsNaN(uv.y) ||
                 float.IsNaN(radiusUv) || float.IsInfinity(radiusUv) ||
-                uv.x < 0f || uv.x > 1f || uv.y < 0f || uv.y > 1f) return;
+                uv.x < -UvTolerance || uv.x > 1f + UvTolerance ||
+                uv.y < -UvTolerance || uv.y > 1f + UvTolerance) return;
+            uv.x = Mathf.Clamp01(uv.x);
+            uv.y = Mathf.Clamp01(uv.y);
             // texel centres match normalized texture UVs; UV=1 never indexes outside the array.
             float cx = uv.x * size - 0.5f;
             float cy = uv.y * size - 0.5f;
