@@ -27,6 +27,7 @@ namespace TeamG.Gameplay
         [SerializeField] private LayerMask aimMask = ~0;
 
         private PaintBall heldBall;
+        private Animator animator;
         private float chargeStartedAt;
         private float nextThrowAt;
         private bool focused = true;
@@ -54,6 +55,7 @@ namespace TeamG.Gameplay
                 Debug.LogError("PlayerThrow: assign Player Camera, Throw Point and Ball Prefab.", this);
                 enabled = false;
             }
+            animator = GetComponentInChildren<Animator>();
         }
 
         private void Update()
@@ -89,6 +91,7 @@ namespace TeamG.Gameplay
 
             if (pressed && heldBall == null && Time.time >= nextThrowAt)
             {
+                animator.SetBool("Throw", false);
                 heldBall = Instantiate(ballPrefab, throwPoint.position, throwPoint.rotation);
                 heldBall.Prepare(throwPoint);
                 chargeStartedAt = Time.time;
@@ -96,6 +99,7 @@ namespace TeamG.Gameplay
 
             if (released && heldBall != null)
             {
+                animator.SetBool("Throw", true);
                 PaintBall ball = heldBall;
                 float speed = Mathf.Lerp(minSpeed, Mathf.Max(minSpeed, maxSpeed), Charge01);
                 Vector3 target = GetAimPoint();
