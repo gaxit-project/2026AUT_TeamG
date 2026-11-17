@@ -285,7 +285,7 @@ Transform:
   m_GameObject: {fileID: 6673474943614133317}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -306,9 +306,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: TeamG.Gameplay::TeamG.Gameplay.RodeoMachine
   body: {fileID: 8213122867648874769}
-  yawRange: 45
-  yawFrequency: 0.3
-  pitchAngle: 15
+  yawRange: 60
+  yawFrequency: 0.5
+  pitchAngle: 20
   calmFrequencyRange: {x: 0.3, y: 0.5}
   burstFrequencyRange: {x: 0.8, y: 1}
   calmDuration: 5

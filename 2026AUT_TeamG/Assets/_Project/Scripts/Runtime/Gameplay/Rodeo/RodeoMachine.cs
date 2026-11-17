@@ -17,17 +17,23 @@ namespace TeamG.Gameplay
         [SerializeField] float calmDuration = 5f;          //通常時の時間
         [SerializeField] float burstDuration = 3f;         //暴走時の時間
         [SerializeField] float wanderSpeed = 0.5f;         //周回する速さ(大きいほどせわしない)
-        [SerializeField] float frequencyResponse = 3f;   //目標の速さに近づく速さ(大きいほどすぐに切り替わる)
+        [SerializeField] float frequencyResponse = 3f;     //目標の速さに近づく速さ(大きいほどすぐに切り替わる)
+        [SerializeField] float powerResponse = 3f;         //揺れの強さの変化の速さ(大きいほどすぐに切り替わる)
 
         Vector3 restLocalPosition;
         Quaternion restLocalRotation;
 
+        float power = 1f;           //揺れの強さ。1 = 全開、0 = 停止
         float yawPhase;
         float phase;
         float frequency;
         float modeTimer;
 
         bool isBursting;
+        bool running = true;
+
+        public bool Running => running;
+        public void SetRunning(bool value) => running = value;
 
         void Awake()
         {
@@ -41,10 +47,12 @@ namespace TeamG.Gameplay
         {
             float dt = Time.fixedDeltaTime;
             UpdateFrequency(dt);
+            float targetPower = running ? 1f : 0f;
+            power = Mathf.Lerp(power, targetPower, 1f - Mathf.Exp(-powerResponse * dt));
             yawPhase += yawFrequency * 2f * Mathf.PI * dt;
-            float yaw = yawRange * Mathf.Sin(yawPhase);
+            float yaw = yawRange * power * Mathf.Sin(yawPhase);
             phase += frequency * 2f * Mathf.PI * dt;
-            float pitch = pitchAngle * Mathf.Sin(phase);
+            float pitch = pitchAngle * power * Mathf.Sin(phase);
             Quaternion rot = Quaternion.AngleAxis(yaw, Vector3.up) * Quaternion.Euler(pitch, 0f, 0f) * restLocalRotation;
             body.MovePosition(transform.TransformPoint(restLocalPosition));
             body.MoveRotation(transform.rotation * rot);
