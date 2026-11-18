@@ -31,8 +31,24 @@ namespace TeamG.Gameplay
         private float nextThrowAt;
         private bool focused = true;
 
-        public float Charge01 => heldBall == null ? 0f : Mathf.Clamp01(
-            (Time.time - chargeStartedAt) / Mathf.Max(0.01f, chargeSeconds));
+#if ENABLE_INPUT_SYSTEM
+        private InputAction throwInput;
+        private InputAction cancelInput;
+#endif
+
+        public float Charge01
+        {
+            get
+            {
+                if (heldBall == null)
+                {
+                    return 0f;
+                }
+
+                return Mathf.Clamp01(
+                    (Time.time - chargeStartedAt) / Mathf.Max(0.01f, chargeSeconds));
+            }
+        }
 
         // Keep this signature compatible with RodeoSplashDemoBuilder.
         public void Configure(Camera camera, Transform point, PaintBall prefab, Transform owner)
@@ -41,6 +57,28 @@ namespace TeamG.Gameplay
             throwPoint = point;
             ballPrefab = prefab;
             ownerRoot = owner;
+        }
+
+        private void OnEnable()
+        {
+#if ENABLE_INPUT_SYSTEM
+            // InputSystem_Actions is the project's configured, automatically enabled asset.
+            InputActionAsset actions = InputSystem.actions;
+            if (actions == null)
+            {
+                Debug.LogError("PlayerThrow: assign InputSystem_Actions as the Project-wide Actions asset in Project Settings > Input System Package.", this);
+                enabled = false;
+                return;
+            }
+
+            throwInput = actions.FindAction("Player/Throw");
+            cancelInput = actions.FindAction("Player/CancelThrow");
+            if (throwInput == null || cancelInput == null)
+            {
+                Debug.LogError("PlayerThrow: add Player/Throw and Player/CancelThrow to InputSystem_Actions.", this);
+                enabled = false;
+            }
+#endif
         }
 
         private void Start()
@@ -70,11 +108,14 @@ namespace TeamG.Gameplay
             bool cancel;
 
 #if ENABLE_INPUT_SYSTEM
-            Mouse mouse = Mouse.current;
-            if (mouse == null) { CancelCharge(); return; }
-            pressed = mouse.leftButton.wasPressedThisFrame;
-            released = mouse.leftButton.wasReleasedThisFrame;
-            cancel = Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame;
+            if (!throwInput.enabled)
+            {
+                CancelCharge();
+                return;
+            }
+            pressed = throwInput.WasPressedThisFrame();
+            released = throwInput.WasReleasedThisFrame();
+            cancel = cancelInput.WasPressedThisFrame();
 #else
             pressed = Input.GetMouseButtonDown(0);
             released = Input.GetMouseButtonUp(0);
@@ -145,6 +186,7 @@ namespace TeamG.Gameplay
         private void OnDisable()
         {
             CancelCharge();
+            // The project owns these shared actions; leave their lifetime to the Input System.
         }
     }
 }
