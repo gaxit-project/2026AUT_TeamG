@@ -6,6 +6,7 @@ namespace TeamG.Gameplay
     /// <summary>ロデオの揺れに合わせてゲームパッドを振動させる。</summary>
     public class RodeoRumble : MonoBehaviour
     {
+        /*
         [SerializeField] RodeoMachine machine;
 
         [Header("左右:これより振れていないときは静か(0～1)")]
@@ -52,5 +53,6 @@ namespace TeamG.Gameplay
 
             pad.SetMotorSpeeds(Mathf.Clamp01(low), Mathf.Clamp01(high));
         }
+        */
     }
 }
