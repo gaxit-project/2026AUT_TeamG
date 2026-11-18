@@ -28,7 +28,7 @@ namespace TeamG.Gameplay
             ballCollider = GetComponent<SphereCollider>();
             body.isKinematic = true;
             body.useGravity = false;
-            ballCollider.isTrigger = true;
+            ballCollider.isTrigger = false;
             ballCollider.enabled = false;
         }
 
@@ -44,7 +44,7 @@ namespace TeamG.Gameplay
             if (launched || consumed) return;
             ownerRoot = owner;
             transform.SetParent(null, true);
-            ballCollider.isTrigger = true;
+            ballCollider.isTrigger = false;
             ballCollider.enabled = true;
             ownerColliders.Clear();
             if (ownerRoot != null)

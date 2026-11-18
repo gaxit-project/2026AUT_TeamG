@@ -127,12 +127,13 @@ namespace TeamG.Gameplay
             if (cancel)
             {
                 CancelCharge();
+                animator.SetTrigger("ThrowCancel");
                 return;
             }
 
             if (pressed && heldBall == null && Time.time >= nextThrowAt)
             {
-                animator.SetBool("Throw", false);
+                animator.SetTrigger("ThrowStandby");
                 heldBall = Instantiate(ballPrefab, throwPoint.position, throwPoint.rotation);
                 heldBall.Prepare(throwPoint);
                 chargeStartedAt = Time.time;
@@ -140,7 +141,7 @@ namespace TeamG.Gameplay
 
             if (released && heldBall != null)
             {
-                animator.SetBool("Throw", true);
+                animator.SetTrigger("Throw");
                 PaintBall ball = heldBall;
                 float speed = Mathf.Lerp(minSpeed, Mathf.Max(minSpeed, maxSpeed), Charge01);
                 Vector3 target = GetAimPoint();
@@ -191,6 +192,14 @@ namespace TeamG.Gameplay
         {
             CancelCharge();
             // The project owns these shared actions; leave their lifetime to the Input System.
+        }
+
+        private void ResetAnim() //アニメーションで呼び出す用
+        {
+            if (animator != null)
+            {
+                animator.SetTrigger("ThrowCancel");
+            }
         }
     }
 }
