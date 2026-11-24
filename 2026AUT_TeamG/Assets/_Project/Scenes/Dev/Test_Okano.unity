@@ -662,13 +662,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: TeamG.Gameplay::TeamG.Gameplay.FallOffRodeo
   rayPosition: {fileID: 62393352}
   rayDistance: 20
-  elapsedTime: 0
-  timeToFall: 3
+  cameraElapsedTime: 0
+  cameraTimeToFall: 3
   targetTag: Test
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
+  leftStickAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  requiredYawRange: 15
+  requiredStickInput: 0.5
+  stickElapsedTime: 0
+  stickTimeToFall: 0.85
   isHit: 0
+  isTracking: 0
   isFalling: 0
 --- !u!136 &406890042
 CapsuleCollider:

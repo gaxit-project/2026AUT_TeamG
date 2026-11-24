@@ -1968,7 +1968,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6197338322662231636, guid: 0f4be9e17014cd84d94bfe2720c5f2dc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1442663210}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6673474943614133317, guid: 0f4be9e17014cd84d94bfe2720c5f2dc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2056059743}
   m_SourcePrefab: {fileID: 100100000, guid: 0f4be9e17014cd84d94bfe2720c5f2dc, type: 3}
 --- !u!4 &1177014406 stripped
 Transform:
@@ -3017,14 +3020,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: TeamG.Gameplay::TeamG.Gameplay.FallOffRodeo
   rayPosition: {fileID: 548718595}
-  rayDistance: 30
-  elapsedTime: 0
-  timeToFall: 6
+  rayDistance: 20
+  cameraElapsedTime: 0
+  cameraTimeToFall: 3
   targetTag: Test
   targetLayer:
     serializedVersion: 2
     m_Bits: 128
+  leftStickAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  requiredYawRange: 15
+  requiredStickInput: 0.5
+  stickElapsedTime: 0
+  stickTimeToFall: 0.85
   isHit: 0
+  isTracking: 0
   isFalling: 0
 --- !u!1 &1561882353
 GameObject:
@@ -3366,6 +3375,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745576355}
   m_CullTransparentMesh: 1
+--- !u!1 &1821602743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6673474943614133317, guid: 0f4be9e17014cd84d94bfe2720c5f2dc, type: 3}
+  m_PrefabInstance: {fileID: 1177014405}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1826261434
 GameObject:
   m_ObjectHideFlags: 0
@@ -3587,6 +3601,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 541304731232352652, guid: 0f4be9e17014cd84d94bfe2720c5f2dc, type: 3}
   m_PrefabInstance: {fileID: 1177014405}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2056059743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821602743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee3fc954f23716478baf4d798583a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TeamG.Gameplay::TeamG.Gameplay.RodeoRumble
 --- !u!1 &2136848683
 GameObject:
   m_ObjectHideFlags: 0

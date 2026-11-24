@@ -29,6 +29,10 @@ namespace TeamG.Gameplay
         float frequency;
         float modeTimer;
 
+        private float yaw;
+        public float currentYaw => yaw; //現在の左右の揺れ角度
+        public float currentPitch { get; private set; }
+
         bool isBursting;
         bool running = true;
 
@@ -50,9 +54,10 @@ namespace TeamG.Gameplay
             float targetPower = running ? 1f : 0f;
             power = Mathf.Lerp(power, targetPower, 1f - Mathf.Exp(-powerResponse * dt));
             yawPhase += yawFrequency * 2f * Mathf.PI * dt;
-            float yaw = yawRange * power * Mathf.Sin(yawPhase);
+            yaw = yawRange * power * Mathf.Sin(yawPhase);
             phase += frequency * 2f * Mathf.PI * dt;
             float pitch = pitchAngle * power * Mathf.Sin(phase);
+            currentPitch = pitch;
             Quaternion rot = Quaternion.AngleAxis(yaw, Vector3.up) * Quaternion.Euler(pitch, 0f, 0f) * restLocalRotation;
             body.MovePosition(transform.TransformPoint(restLocalPosition));
             body.MoveRotation(transform.rotation * rot);
