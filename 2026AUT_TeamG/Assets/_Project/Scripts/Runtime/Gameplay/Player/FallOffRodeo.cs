@@ -1,4 +1,4 @@
-
+﻿
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,6 +32,8 @@ namespace TeamG.Gameplay
         private RaycastHit hit;
         private Rigidbody rb;
         private RodeoMachine rodeoMachine;
+
+        public bool IsFalling => isFalling;
 
         void Start()
         {

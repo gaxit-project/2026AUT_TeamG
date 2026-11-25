@@ -1,6 +1,6 @@
-namespace TeamG.Core
+ï»¿namespace TeamG.Core
 {
-    /// <summary>ƒV[ƒ“–¼B–¼‘O‚ğ•Ï‚¦‚½‚çŒÂX‚à’¼‚·B</summary>
+    /// <summary>ã‚·ãƒ¼ãƒ³åã€‚åå‰ã‚’å¤‰ãˆãŸã‚‰å€‹ã€…ã‚‚ç›´ã™ã€‚</summary>
     public static class SceneNames
     {
         public const string Title = "01_Title";

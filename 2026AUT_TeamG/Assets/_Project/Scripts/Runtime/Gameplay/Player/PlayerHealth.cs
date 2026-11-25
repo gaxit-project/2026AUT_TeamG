@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace TeamG.Gameplay
@@ -12,6 +12,8 @@ namespace TeamG.Gameplay
 
         [Header("UI Elements")]
         [SerializeField] private Slider healthSlider;
+
+        public bool IsDead => currentHealth <= 0;
 
         //ボールが当たっての処理
         private void OnCollisionEnter(Collision collision)
